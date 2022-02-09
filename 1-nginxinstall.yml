@@ -1,0 +1,19 @@
+---
+- name: nginx install
+  hosts: node1 
+  become: true
+  
+  tasks:  
+  - name: install nginx
+    apt: pkg=nginx state=latest
+     
+  - name: start nginx
+    service: 
+      name: nginx
+      state: started
+
+  - name: create content
+    copy:
+      content: "HELLO WORLD"
+      dest: /var/www/html/index.html
+

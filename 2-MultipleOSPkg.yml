@@ -1,0 +1,31 @@
+--- 
+- 
+  become: true
+  hosts: all
+  name: "Multiple Task instalation"
+  tasks: 
+    - 
+      name: "Install Web Server Packages"
+      package: 
+        name: "{{ packages[ansible_os_family] }}"
+        state: latest
+    - 
+      name: "Web Service Restart"
+      service: 
+        enabled: true
+        name: "{{ services[ansible_os_family] }}"
+        state: restarted
+  vars: 
+    - 
+      packages: 
+        Debian: 
+          - nginx
+          - nmap
+        RedHat: 
+          - nginx
+          - nmap
+    - 
+      services: 
+        Debian: nginx
+        RedHat: nginx
+

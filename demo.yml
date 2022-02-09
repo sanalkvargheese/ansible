@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: "check if nginx is installed"
+      package_facts:
+        manager: "auto"
+    - name: "nginx result"
+      debug:
+         msg: "nginx found"
+      when: "'nginx' in ansible_facts.packages"
+    - name: "nginx result"
+      debug:
+         msg: "nginx not found"
+      when: "'nginx' not in ansible_facts.packages"
